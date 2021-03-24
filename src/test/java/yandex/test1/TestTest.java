@@ -7,10 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -23,8 +20,9 @@ public class TestTest {
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         option = new ChromeOptions();
+        option.setBinary(ConfProperties.getProperty("chromebin"));
         option.addArguments("user-data-dir=C:\\Browsers\\otr.chrome85");
-        option.addArguments("chrome-version=85.0.4183.102");
+        option.addArguments("chrome-version=85.0.4183.83");
     }
 
     @Before
@@ -32,8 +30,19 @@ public class TestTest {
 
     }
 
-
     @Test
+    public void testGroup1() {
+        step1();
+        step2();
+        step3();
+        step4();
+        step5();
+        //step6();
+        step7();
+    }
+
+
+
     public void step1() {
         //Открыть Хром-браузер на весь экран
         CommonFunctions.printStep();
@@ -42,14 +51,12 @@ public class TestTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @Test
     public void step2() {
         //Перейти на  www.yandex.ru
         CommonFunctions.printStep();
         driver.get(ConfProperties.getProperty("url"));
     }
 
-    @Test
     public void step3() {
         //Перейти в раздел "Маркет"
         CommonFunctions.printStep();
@@ -59,14 +66,12 @@ public class TestTest {
         driver.switchTo().window(browsersTabs[1]);
     }
 
-    @Test
     public void step4() {
         //В Маркете , в поисковой строке ввести "ноутбук xiaomi redmibook"
         CommonFunctions.printStep();
         driver.findElement(By.xpath("//input[@id=\"header-search\"]")).sendKeys("ноутбук xiaomi redmibook");
     }
 
-    @Test
     public void step5() {
         //Произвести поиск нажатием кнопки "Найти"
         CommonFunctions.printStep();
@@ -75,16 +80,12 @@ public class TestTest {
         yaMarketSearchButton.click();
     }
 
-    /*
-    @Test
     public void step6() {
         //Поставить галочку "Сначала предложения в моем регионе"
         CommonFunctions.printStep();
-        driver.get("https://passport.yandex.ru/auth");
+        //Нужная галка не обнаружена
     }
-    */
 
-    @Test
     public void step7() {
         //Сделать скриншот и сохранить в *.jpg формате в папке с тестом
         CommonFunctions.printStep();
