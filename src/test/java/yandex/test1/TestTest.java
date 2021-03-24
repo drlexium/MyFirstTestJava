@@ -25,10 +25,6 @@ public class TestTest {
         option = new ChromeOptions();
         option.addArguments("user-data-dir=C:\\Browsers\\otr.chrome85");
         option.addArguments("chrome-version=85.0.4183.102");
-        //driver = new ChromeDriver(option);
-        //driver.manage().window().maximize();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //driver.get(ConfProperties.getProperty("url"));
     }
 
     @Before
@@ -40,6 +36,7 @@ public class TestTest {
     @Test
     public void step1() {
         //Открыть Хром-браузер на весь экран
+        CommonFunctions.printStep();
         driver = new ChromeDriver(option);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -48,12 +45,14 @@ public class TestTest {
     @Test
     public void step2() {
         //Перейти на  www.yandex.ru
+        CommonFunctions.printStep();
         driver.get(ConfProperties.getProperty("url"));
     }
 
     @Test
     public void step3() {
         //Перейти в раздел "Маркет"
+        CommonFunctions.printStep();
         WebElement yaMarkerButton = driver.findElement(By.xpath("//ul[contains(@class, \"services-new__list\")]/li[contains(., \"Маркет\")]/a"));
         yaMarkerButton.click();
         String[] browsersTabs = driver.getWindowHandles().toArray(new String[0]);
@@ -63,32 +62,32 @@ public class TestTest {
     @Test
     public void step4() {
         //В Маркете , в поисковой строке ввести "ноутбук xiaomi redmibook"
+        CommonFunctions.printStep();
         driver.findElement(By.xpath("//input[@id=\"header-search\"]")).sendKeys("ноутбук xiaomi redmibook");
     }
 
     @Test
     public void step5() {
         //Произвести поиск нажатием кнопки "Найти"
-        //WebElement yaMarkerSearchButton = driver.findElement(By.xpath("//form[@action=\"/search\"]/div/div/button[@type=\"submit\"]"));
-
-        WebElement yaMarkerSearchButton = (new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//form[@action=\"/search\"]/div/div/button[@type=\"submit\"]"))));
-
-        yaMarkerSearchButton.click();
+        CommonFunctions.printStep();
+        WebElement yaMarketSearchButton = driver.findElement(By.xpath("//form[@action=\"/search\"]/div/div/button[@type=\"submit\"]"));
+        CommonFunctions.waitForElement(driver, By.xpath("//form[@action=\"/search\"]/div/div/button[@type=\"submit\"]"), 10);
+        yaMarketSearchButton.click();
     }
 
     /*
     @Test
     public void step6() {
         //Поставить галочку "Сначала предложения в моем регионе"
+        CommonFunctions.printStep();
         driver.get("https://passport.yandex.ru/auth");
     }
-*/
+    */
+
     @Test
-    public void step7() throws IOException {
+    public void step7() {
         //Сделать скриншот и сохранить в *.jpg формате в папке с тестом
-        //File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        //FileUtils.copyFile(scrFile, new File("c:\\WebDriverServer\\screens\\screenshot.jpg"));
+        CommonFunctions.printStep();
         CommonFunctions.screenShot(driver, "c:\\WebDriverServer\\screens\\screenshot.jpg");
     }
 
